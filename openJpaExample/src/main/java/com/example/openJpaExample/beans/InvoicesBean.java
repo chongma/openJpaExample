@@ -31,7 +31,7 @@ public class InvoicesBean implements Serializable {
 
 	public String create() {
 		for (int i = 0; i < 10; i++) {
-			invoiceDao.create("INVOICE: " + i);
+			invoiceDao.createInvoice("INVOICE: " + i);
 		}
 		update();
 		return null;

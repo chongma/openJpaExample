@@ -23,8 +23,11 @@ public class InvoiceBean implements Serializable {
 	private Invoice invoice;
 	private InvoiceItem invoiceItem;
 
-	public void onload() {
+	public String onload() {
 		update();
+		if (invoice == null)
+			return "invoices";
+		return null;
 	}
 
 	private void update() {
@@ -40,7 +43,7 @@ public class InvoiceBean implements Serializable {
 	}
 
 	public String delete() {
-		invoiceDao.deleteInvoiceItem(invoice, invoiceItem);
+		invoiceDao.deleteInvoiceItem(invoiceItem);
 		update();
 		return null;
 	}

@@ -24,7 +24,7 @@ public class Invoice implements Serializable {
 	@Lob
 	private String name;
 
-	@OneToMany(mappedBy="invoice")
+	@OneToMany(mappedBy = "invoice")
 	private List<InvoiceItem> invoiceItem;
 
 	public List<InvoiceItem> getInvoiceItem() {

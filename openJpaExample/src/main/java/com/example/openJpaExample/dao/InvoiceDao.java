@@ -23,7 +23,7 @@ public class InvoiceDao {
 	@Inject
 	private EntityManager em;
 
-	public void create(String name) {
+	public void createInvoice(String name) {
 		log.info(name);
 		Invoice invoice = new Invoice();
 		invoice.setName(name);
@@ -39,6 +39,7 @@ public class InvoiceDao {
 	}
 
 	public void create(Invoice invoice, String name, BigDecimal value) {
+		log.fine("Create invoice item: " + invoice.getId());
 		InvoiceItem invoiceItem = new InvoiceItem();
 		invoiceItem.setName(name);
 		invoiceItem.setValue(value);
@@ -47,20 +48,17 @@ public class InvoiceDao {
 			invoice.setInvoiceItem(new ArrayList<>());
 		invoice.getInvoiceItem().add(invoiceItem);
 		em.persist(invoiceItem);
-		em.merge(invoice);
 	}
 
 	public void deleteInvoice(Invoice invoice) {
-		log.fine("DELETE: " + invoice.getId());
+		log.fine("Delete invoice: " + invoice.getId());
 		invoice = em.merge(invoice);
 		em.remove(invoice);
 	}
 
-	public void deleteInvoiceItem(Invoice invoice, InvoiceItem invoiceItem) {
+	public void deleteInvoiceItem(InvoiceItem invoiceItem) {
 		log.info("Deleting InvoiceItem: " + invoiceItem.getId());
-		invoice = em.merge(invoice);
 		invoiceItem = em.merge(invoiceItem);
-		invoice.getInvoiceItem().remove(invoiceItem);
 		em.remove(invoiceItem);
 	}
 

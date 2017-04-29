@@ -40,9 +40,9 @@
 				<b:dataTableColumn label="Name" value="#{invoice.name}" />
 				<b:dataTableColumn>
 					<h:commandLink value="delete" action="#{invoicesBean.delete}">
-						<f:setPropertyActionListener value="#{invoice.id}"
-							target="#{invoicesBean.invoiceId}" />
-						<f:ajax />
+						<f:setPropertyActionListener value="#{invoice}"
+							target="#{invoicesBean.invoice}" />
+						<f:ajax render="@form" />
 					</h:commandLink>
 				</b:dataTableColumn>
 			</b:dataTable>

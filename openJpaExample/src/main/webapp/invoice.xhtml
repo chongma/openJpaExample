@@ -60,13 +60,14 @@
 
 			<b:dataTable var="invoiceItem"
 				value="#{invoiceBean.invoice.invoiceItem}">
+				<b:dataTableColumn value="#{invoiceItem.id}" />
 				<b:dataTableColumn value="#{invoiceItem.name}" />
 				<b:dataTableColumn value="#{invoiceItem.value}" />
 				<b:dataTableColumn>
 					<h:commandLink value="delete" action="#{invoiceBean.delete}">
 						<f:setPropertyActionListener value="#{invoiceItem}"
 							target="#{invoiceBean.invoiceItem}" />
-						<f:ajax />
+						<f:ajax render="@form" />
 					</h:commandLink>
 				</b:dataTableColumn>
 			</b:dataTable>

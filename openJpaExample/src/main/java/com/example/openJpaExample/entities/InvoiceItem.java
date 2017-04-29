@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
@@ -29,7 +28,7 @@ public class InvoiceItem implements Serializable {
 	private BigDecimal value;
 
 	@ManyToOne
-	@JoinColumn(name="invoiceId")
+	@JoinColumn
 	private Invoice invoice;
 
 	public Invoice getInvoice() {
