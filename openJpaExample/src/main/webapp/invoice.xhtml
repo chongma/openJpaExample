@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	template="/WEB-INF/include/layout.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="id" value="#{invoiceBean.id}" />
+			<f:viewAction action="#{invoiceBean.onload}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="pagehead">
+		<title><h:outputText value="Invoice" /></title>
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h1>
+			<h:outputText value="Invoice" />
+		</h1>
+
+		<h:form>
+
+			<b:well>
+				<b:button outcome="invoices" value="Invoices" icon="chevron-left" />
+			</b:well>
+
+			<b:well>
+				<b:commandButton action="#{invoiceBean.create}" value="Create"
+					icon="chevron-right" iconAlign="right">
+					<f:ajax render="@form" />
+				</b:commandButton>
+			</b:well>
+
+			<b:well>
+
+				<b:row>
+					<b:column col-md="3">
+						<h:outputText value="Id" />
+					</b:column>
+					<b:column col-md="9">
+						<h:outputText value="#{invoiceBean.invoice.id}" />
+					</b:column>
+				</b:row>
+
+				<b:row>
+					<b:column col-md="3">
+						<h:outputText value="Name" />
+					</b:column>
+					<b:column col-md="9">
+						<h:outputText value="#{invoiceBean.invoice.name}" />
+					</b:column>
+				</b:row>
+
+			</b:well>
+
+			<b:dataTable var="invoiceItem"
+				value="#{invoiceBean.invoice.invoiceItem}">
+				<b:dataTableColumn value="#{invoiceItem.name}" />
+				<b:dataTableColumn value="#{invoiceItem.value}" />
+				<b:dataTableColumn>
+					<h:commandLink value="delete" action="#{invoiceBean.delete}">
+						<f:setPropertyActionListener value="#{invoiceItem}"
+							target="#{invoiceBean.invoiceItem}" />
+						<f:ajax />
+					</h:commandLink>
+				</b:dataTableColumn>
+			</b:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

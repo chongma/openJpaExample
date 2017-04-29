@@ -12,24 +12,33 @@ import com.example.openJpaExample.entities.Invoice;
 
 @Named
 @ViewScoped
-public class IndexBean implements Serializable {
+public class InvoicesBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private InvoiceDao invoiceDao;
 
 	private List<Invoice> invoiceList;
+	private Invoice invoice;
 
 	public void onload() {
 		update();
 	}
 
 	private void update() {
-		setInvoiceList(invoiceDao.select());
+		setInvoiceList(invoiceDao.selectInvoicesAll());
 	}
 
 	public String create() {
-		invoiceDao.create();
+		for (int i = 0; i < 10; i++) {
+			invoiceDao.create("INVOICE: " + i);
+		}
+		update();
+		return null;
+	}
+
+	public String delete() {
+		invoiceDao.deleteInvoice(invoice);
 		update();
 		return null;
 	}
@@ -40,6 +49,14 @@ public class IndexBean implements Serializable {
 
 	public void setInvoiceList(List<Invoice> invoiceList) {
 		this.invoiceList = invoiceList;
+	}
+
+	public Invoice getInvoice() {
+		return invoice;
+	}
+
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 
 }

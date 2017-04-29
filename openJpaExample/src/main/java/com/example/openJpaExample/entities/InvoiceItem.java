@@ -1,17 +1,19 @@
 package com.example.openJpaExample.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 @Entity
-public class Invoice implements Serializable {
+public class InvoiceItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -24,15 +26,18 @@ public class Invoice implements Serializable {
 	@Lob
 	private String name;
 
-	@OneToMany(mappedBy="invoice")
-	private List<InvoiceItem> invoiceItem;
+	private BigDecimal value;
 
-	public List<InvoiceItem> getInvoiceItem() {
-		return invoiceItem;
+	@ManyToOne
+	@JoinColumn(name="invoiceId")
+	private Invoice invoice;
+
+	public Invoice getInvoice() {
+		return invoice;
 	}
 
-	public void setInvoiceItem(List<InvoiceItem> invoiceItem) {
-		this.invoiceItem = invoiceItem;
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
 
 	public long getId() {
@@ -57,5 +62,13 @@ public class Invoice implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public BigDecimal getValue() {
+		return value;
+	}
+
+	public void setValue(BigDecimal value) {
+		this.value = value;
 	}
 }
